@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch --env-file .env src/index.ts",
-    "start": "node --env-file .env dist/index.js",
+    "dev": "tsx --watch --env-file .env src/app.ts",
+    "start": "node --env-file .env dist/src/app.js",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -21,11 +21,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@tsconfig/node22": "^22.0.5",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
     "@vitest/coverage-v8": "^4.1.5",
