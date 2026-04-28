@@ -1,6 +1,13 @@
 import { RequestHandler } from "express";
 
-export const middleware: RequestHandler = (req, res) => {
-  res.send("Hello World!");
-  console.log("Response sent");
+const myLogger: RequestHandler = (_req, _res, next) => {
+  console.log("LOGGED");
+  next();
 };
+
+const requestLogger: RequestHandler = (req, _res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+};
+
+export { myLogger, requestLogger };
