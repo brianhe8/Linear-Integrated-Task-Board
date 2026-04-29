@@ -1,5 +1,4 @@
 const LINEAR_GRAPHQL_URL = "https://api.linear.app/graphql";
-
 interface LinearGraphQLError {
   extensions?: unknown;
   message: string;

@@ -2,7 +2,12 @@ import cors from "cors";
 import express from "express";
 
 import { linearGraphQL } from "#external/linear.js";
-import { myLogger, requestLogger } from "#middlewares/middlewares.js";
+import {
+  myLogger,
+  requestLogger,
+  requestTime,
+} from "#middlewares/middlewares.js";
+import linearRouter from "#routes/linear.js";
 import userRouter from "#routes/user.js";
 
 const app = express();
@@ -10,11 +15,17 @@ const port = process.env.PORT ?? "9001";
 
 app.use(cors());
 app.use(express.json());
+app.use(myLogger);
 app.use(requestLogger);
+app.use(requestTime);
 
-app.get("/", myLogger);
+app.get("/", (req, res) => {
+  let responseText = "hello world!<br>";
+  responseText += `<small>Requested at: ${req.requestTime ?? "unknown"}</small>`;
+  res.send(responseText);
+});
 app.use("/user", userRouter);
-
+app.use("/linear", linearRouter);
 app.get("/linear/me", async (_req, res) => {
   try {
     const data = await linearGraphQL<{
