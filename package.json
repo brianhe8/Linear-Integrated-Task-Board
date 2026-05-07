@@ -1,60 +1,26 @@
 {
   "name": "taskboardwlinear",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
+  "workspaces": [
+    "app/backend",
+    "app/frontend"
+  ],
   "scripts": {
-    "dev": "tsx --watch --env-file .env src/app.ts",
-    "start": "node --env-file .env dist/src/app.js",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "dev": "npm run dev --workspace=app/backend & npm run dev --workspace=app/frontend",
+    "dev:backend": "npm run dev --workspace=app/backend",
+    "dev:frontend": "npm run dev --workspace=app/frontend",
+    "lint": "npm run lint --workspaces",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build": "tsc -p tsconfig.build.json",
-    "test": "vitest",
-    "test:run": "vitest --run",
-    "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage",
+    "test": "npm run test --workspace=app/backend",
+    "test:run": "npm run test:run --workspace=app/backend",
+    "type-check": "npm run type-check --workspace=app/backend",
     "prepare": "husky"
   },
-  "author": "brian",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1"
-  },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@tsconfig/node22": "^22.0.5",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.6.0",
-    "@vitest/coverage-v8": "^4.1.5",
-    "@vitest/eslint-plugin": "^1.6.16",
-    "@vitest/ui": "^4.1.5",
-    "eslint": "^10.2.1",
-    "eslint-plugin-perfectionist": "^5.9.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "nodemon": "^3.1.14",
-    "prettier": "^3.8.3",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.0",
-    "vitest": "^4.1.5"
-  },
-  "imports": {
-    "#*": "./src/*"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint",
-      "prettier --check"
-    ],
-    "*.{json,yml,yaml,md}": [
-      "prettier --check"
-    ]
+    "prettier": "^3.8.3"
   }
 }

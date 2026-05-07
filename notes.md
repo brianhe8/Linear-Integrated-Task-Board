@@ -7,3 +7,8 @@ Throughout this guide, we’ve built a modern Express.js development template th
 ## Learned
 
 GraphQL
+curL requests
+
+Controllers job - Understands HTTP/ decides what error code to use
+
+Service Job - performs logic

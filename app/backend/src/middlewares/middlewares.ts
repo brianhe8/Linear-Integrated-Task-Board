@@ -1,5 +1,10 @@
 import { RequestHandler } from "express";
 
+const auth: RequestHandler = (req, _res, next) => {
+  if (req.params.id === "2") {
+    next();
+  }
+};
 const myLogger: RequestHandler = (_req, _res, next) => {
   console.log("LOGGED");
   next();
@@ -13,4 +18,4 @@ const requestTime: RequestHandler = (req, _res, next) => {
   next();
 };
 
-export { myLogger, requestLogger, requestTime };
+export { auth, myLogger, requestLogger, requestTime };
