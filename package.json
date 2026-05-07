@@ -11,12 +11,22 @@
     "dev:backend": "npm run dev --workspace=app/backend",
     "dev:frontend": "npm run dev --workspace=app/frontend",
     "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspace=app/backend",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "npm run test --workspace=app/backend",
     "test:run": "npm run test:run --workspace=app/backend",
     "type-check": "npm run type-check --workspace=app/backend",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint",
+      "prettier --check"
+    ],
+    "*.{json,yml,yaml,md}": [
+      "prettier --check"
+    ]
   },
   "devDependencies": {
     "husky": "^9.1.7",
