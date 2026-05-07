@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getAllIssuesFromProject } from "../controllers/linear.js";
+import { getAllIssuesFromProject } from "#controllers/linear.js";
 const router = Router();
 
 router.get("/", getAllIssuesFromProject);

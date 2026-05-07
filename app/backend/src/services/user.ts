@@ -1,4 +1,4 @@
-import { User } from "../types/user.js";
+import { User } from "#types/user.js";
 
 // In-memory store — stands in for a real database
 const users: User[] = [

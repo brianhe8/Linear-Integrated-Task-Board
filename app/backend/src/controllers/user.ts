@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import * as userService from "../services/user.js";
+import * as userService from "#services/user.js";
 
 const getUsers: RequestHandler = (_req, res) => {
   res.json(userService.getAll());

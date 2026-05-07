@@ -5,9 +5,9 @@ import {
   myLogger,
   requestLogger,
   requestTime,
-} from "./middlewares/middlewares.js";
-import linearRouter from "./routes/linear.js";
-import userRouter from "./routes/user.js";
+} from "#middlewares/middlewares.js";
+import linearRouter from "#routes/linear.js";
+import userRouter from "#routes/user.js";
 
 const app = express();
 const port = process.env.PORT ?? "9001";

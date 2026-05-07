@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import * as linearService from "../services/linear.js";
+import * as linearService from "#services/linear.js";
 
 const getAllIssuesFromProject: RequestHandler = async (_req, res) => {
   try {

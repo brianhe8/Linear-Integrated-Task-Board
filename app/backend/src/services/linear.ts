@@ -1,4 +1,4 @@
-import { linearGraphQL } from "../external/linear.js";
+import { linearGraphQL } from "#external/linear.js";
 
 interface Issue {
   id: string;
