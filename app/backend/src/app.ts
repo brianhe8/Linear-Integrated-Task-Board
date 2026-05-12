@@ -1,12 +1,14 @@
 import cors from "cors";
 import express from "express";
 
+import { errorHandler } from "#middlewares/errorHandler.js";
 import {
   myLogger,
   requestLogger,
   requestTime,
 } from "#middlewares/middlewares.js";
 import linearRouter from "#routes/linear.js";
+import mainRouter from "#routes/mainRoute.js";
 import userRouter from "#routes/user.js";
 
 const app = express();
@@ -19,15 +21,11 @@ app.use(requestLogger);
 app.use(requestTime);
 console.log("hello");
 
-app.get("/", (req, res) => {
-  let responseText = "hello world!<br>";
-  console.log("hello");
-  responseText += `<small>Requested at: ${req.requestTime ?? "unknown"}</small>`;
-  res.redirect("/user");
-  res.send(responseText);
-});
+app.get("/", mainRouter);
 app.use("/user", userRouter);
 app.use("/linear", linearRouter);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

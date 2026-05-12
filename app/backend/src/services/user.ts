@@ -1,55 +1,73 @@
+import { supabase } from "#external/supabase.js";
 import { User } from "#types/user.js";
 
 // In-memory store — stands in for a real database
-const users: User[] = [
-  {
-    createdAt: "2024-01-01T00:00:00.000Z",
-    email: "alice@example.com",
-    id: "1",
-    name: "Alice",
-  },
-  {
-    createdAt: "2024-01-02T00:00:00.000Z",
-    email: "bob@example.com",
-    id: "2",
-    name: "Bob",
-  },
-];
+// const users: User[] = [
+//   {
+//     created_at: "2024-01-01T00:00:00.000Z",
+//     email: "alice@example.com",
+//     id: "1",
+//     name: "Alice",
+//   },
+//   {
+//     created_at: "2024-01-02T00:00:00.000Z",
+//     email: "bob@example.com",
+//     id: "2",
+//     name: "Bob",
+//   },
+// ];
 
-function create(data: Pick<User, "email" | "name">): User {
-  const user: User = {
-    createdAt: new Date().toISOString(),
-    email: data.email,
-    id: String(users.length + 1),
-    name: data.name,
-  };
-  users.push(user);
-  return user;
+async function create(info: Pick<User, "email" | "name">): Promise<User> {
+  const { data, error } = await supabase
+    .from("users")
+    .insert(info)
+    .select<"*", User>("*")
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }
 
-function getAll(): User[] {
-  return users;
+async function getAll(): Promise<User[]> {
+  const { data, error } = await supabase.from("users").select<"*", User>("*");
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }
 
-function getById(id: string): undefined | User {
-  return users.find((u) => u.id === id);
+async function getById(id: string): Promise<undefined | User> {
+  const { data, error } = await supabase
+    .from("users")
+    .select<"*", User>("*")
+    .eq("id", id)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }
 
-function remove(id: string): boolean {
-  const index = users.findIndex((u) => u.id === id);
-  if (index === -1) return false;
-  users.splice(index, 1);
-  return true;
+async function remove(id: string): Promise<boolean> {
+  const { error } = await supabase.from("users").delete().eq("id", id);
+  return !error; // Returns true if the user was deleted, false otherwise
 }
 
-function update(
+async function update(
   id: string,
-  data: Partial<Pick<User, "email" | "name">>,
-): undefined | User {
-  const index = users.findIndex((u) => u.id === id);
-  if (index === -1) return undefined;
-  users[index] = { ...users[index], ...data };
-  return users[index];
+  input: Partial<Pick<User, "email" | "name">>,
+): Promise<undefined | User> {
+  const { data, error } = await supabase
+    .from("users")
+    .update(input)
+    .eq("id", id)
+    .select<"*", User>("*")
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }
 
 export { create, getAll, getById, remove, update };
