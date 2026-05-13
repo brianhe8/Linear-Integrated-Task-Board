@@ -22,7 +22,7 @@ app.use(requestTime);
 console.log("hello");
 
 app.get("/", mainRouter);
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 app.use("/linear", linearRouter);
 
 app.use(errorHandler);
